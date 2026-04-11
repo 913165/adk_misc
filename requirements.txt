@@ -1,0 +1,6 @@
+google-adk
+litellm
+openai
+python-dotenv
+a2a-sdk
+uvicorn
