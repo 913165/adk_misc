@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools — Google ADK with Python</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c0f14;--surface:#141820;--surface2:#1a1f2b;
+  --accent:#4af0c0;--accent2:#3dd4aa;--accent-dim:rgba(74,240,192,0.08);
+  --text:#e8ecf1;--text2:#8b95a5;--text3:#565e6e;
+  --code-bg:#111521;--border:#1e2533;
+  --orange:#f5a623;--orange-dim:rgba(245,166,35,0.1);
+  --font-head:'Outfit',sans-serif;--font-mono:'DM Mono',monospace;
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font-head)}
+.slide{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:60px 80px;height:100%;
+}
+h2{font-size:38px;font-weight:600;line-height:1.2;margin-bottom:24px;letter-spacing:-0.5px}
+.accent{color:var(--accent)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.code-block{
+  background:var(--code-bg);border:1px solid var(--border);border-radius:12px;
+  padding:28px 32px;font-family:var(--font-mono);font-size:15px;
+  line-height:1.8;color:#c5d0de;overflow-x:auto;
+  box-shadow:0 4px 24px rgba(0,0,0,0.3);
+}
+.code-block .kw{color:#c792ea}.code-block .fn{color:#82aaff}
+.code-block .str{color:#c3e88d}.code-block .cm{color:#546e7a;font-style:italic}
+.code-block .op{color:#89ddff}.code-block .var{color:#f78c6c}
+.callouts{list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:8px}
+.callouts li{font-size:17px;color:var(--text2);line-height:1.6;padding-left:20px;position:relative}
+.callouts li::before{content:'→';position:absolute;left:0;color:var(--accent)}
+.callouts li strong{color:var(--text);font-weight:500}
+.tag{
+  display:inline-block;padding:4px 12px;border-radius:6px;font-size:13px;
+  font-family:var(--font-mono);background:var(--accent-dim);color:var(--accent);
+  border:1px solid rgba(74,240,192,0.2);margin-bottom:20px;
+}
+.fade-up{animation:fadeUp 0.5s ease forwards;opacity:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:0.1s}.d2{animation-delay:0.2s}.d3{animation-delay:0.3s}
+@media(max-width:900px){.slide{padding:40px 32px}h2{font-size:28px}.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="tag fade-up d1">core concept</div>
+  <h2 class="fade-up d1">Tools are just <span class="accent">Python functions</span></h2>
+  <div class="two-col fade-up d2">
+    <div class="code-block" style="margin-top:0">
+      <span class="kw">def</span> <span class="fn">track_order</span>(order_id: <span class="var">str</span>) -> <span class="var">dict</span>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"""Looks up the status of a customer order.</span><br><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">Args:</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">order_id: The order ID like "ORD-1001".</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"""</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;orders <span class="op">=</span> {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"ORD-1001"</span>: <span class="str">"Shipped, arrives April 14"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"ORD-1002"</span>: <span class="str">"Processing"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> {<span class="str">"status"</span>: orders.<span class="fn">get</span>(order_id, <span class="str">"Not found"</span>)}
+    </div>
+    <ul class="callouts">
+      <li><strong>Type hints</strong> tell the LLM what arguments to pass</li>
+      <li><strong>Docstring</strong> tells the LLM when and why to call it</li>
+      <li><strong>Return value</strong> goes back to the LLM as context</li>
+      <li>No decorators — just pass the function directly</li>
+    </ul>
+    <div class="code-block" style="margin-top:20px;padding:20px 24px;font-size:14px;line-height:1.7">
+      <span class="cm"># Wire it up to an agent</span><br>
+      agent <span class="op">=</span> <span class="fn">Agent</span>(<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;name<span class="op">=</span><span class="str">"order_agent"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;model<span class="op">=</span><span class="str">"gemini-2.5-flash"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;instruction<span class="op">=</span><span class="str">"Use track_order to look up orders."</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;tools<span class="op">=</span>[track_order], &nbsp;<span class="cm"># ← that's it</span><br>
+      )
+    </div>
+  </div>
+</div>
+</body>
+</html>
