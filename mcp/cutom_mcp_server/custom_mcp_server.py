@@ -1,9 +1,9 @@
 """
 Google ADK — Custom MCP Server + Agent Example
 =================================================
-This single file contains BOTH:
-  1. A custom MCP server (inventory system with 3 tools)
-  2. An ADK agent that connects to it via stdio
+This single file contains :
+  A custom MCP server (inventory system with 3 tools)
+
 
 The agent spawns THIS SAME FILE as the MCP server process.
 
