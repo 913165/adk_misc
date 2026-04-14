@@ -1,0 +1,19 @@
+# ── Core framework ──
+google-adk
+streamlit
+
+# ── Redis vector store ──
+redis
+redisvl
+
+# ── PDF processing ──
+pdfplumber
+pypdf
+
+# ── Embeddings ──
+sentence-transformers
+
+# ── Utilities ──
+python-dotenv
+numpy
+torchvision

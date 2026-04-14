@@ -1,0 +1,6 @@
+doc:abc123
+
+filename → nike.pdf
+page_num → 3
+text → revenue increased...
+embedding → [0.123,0.343,...]
