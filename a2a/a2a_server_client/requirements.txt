@@ -1,0 +1,9 @@
+google-adk
+litellm
+# ASGI server for running the A2A server
+uvicorn
+# HTTP client for the test client
+httpx
+# Google Generative AI (for Gemini models)
+google-genai
+google-adk[a2a]
