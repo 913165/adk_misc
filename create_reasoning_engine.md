@@ -142,8 +142,11 @@ projects/trusty-solution-405810/locations/us-central1/reasoningEngines/123456789
 
 Use this in code:
 
-```python
-REASONING_ENGINE_APP_NAME="projects/trusty-solution-405810/locations/us-central1/reasoningEngines/1234567890123456789"
+```
+# to  get project engline name
+click on configure and 
+Deployment details
+projects/346268537809/locations/us-central1/reasoningEngines/8634430178308653056
 ```
 
 ---
