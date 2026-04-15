@@ -1,12 +1,4 @@
-Below is your content converted into a clean **Markdown (.md)** file format.
 
-You can copy and save it as:
-
-```
-deploy_fourth_agent.md
-```
-
----
 
 # Deploy Google ADK Agent to Vertex AI Agent Engine
 
